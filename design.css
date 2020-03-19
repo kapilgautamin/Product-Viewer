@@ -1,0 +1,17 @@
+.product-image {
+    max-width: 66%;
+    animation-duration: 0.5s;
+}
+
+.customizer {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.selector{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

@@ -2,8 +2,7 @@
 function SizeSelector(props){
   
   function sizeOptions(){
-    var sizes = window.Inventory.allSizes;
-    return sizes.map(function(num){
+    return props.sizes.map(function(num){
       return (
         <option value={num} key={num}>
             {num}
@@ -13,25 +12,32 @@ function SizeSelector(props){
   }
 
   return (
-  // <label htmlFor="size-options">Size:</label>
-    <select name="size-options">
-      {sizeOptions()}
-    </select>
+    <div>
+      <label htmlFor="size-options">Size: </label>
+      <select defaultValue={props.size} name="size-options">
+        {sizeOptions()}
+      </select>
+    </div>
   );
 }
 
 function ProductImage(props){
-  return <img src="assets/red.jpg" alt="Product Image" />;
+  return <img src={`assets/${props.color}.jpg`} alt="Product Image" />;
 }
 
 function Product(props){
+  var [size, setSize] = React.useState(9);
+  var [color, setColor] = React.useState("red");
+  var [sizes, setSizes] = React.useState(window.Inventory.allSizes);
+
+
   return (
     <div className="customizer">
       <div className="product-image">
-        <ProductImage />
+        <ProductImage color={color}/>
       </div>
       <div className="selector">
-        <SizeSelector />
+        <SizeSelector size={size} sizes={sizes}/>
       </div>
     </div>
   );
