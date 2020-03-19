@@ -38,10 +38,15 @@ function ColorSelector(props){
     });
   }
 
+  function onColorChange(evt){
+    console.log(evt.target.value);
+    props.handleColorChange(evt.target.value);
+  }
+
   return (
     <div>
       <label htmlFor="color-options">Color: </label>
-      <select defaultValue={props.color} name="color-options">
+      <select defaultValue={props.color} name="color-options" onChange={onColorChange}>
         {colorOptions()}
       </select>
     </div>
@@ -59,7 +64,21 @@ function Product(props){
   var [sizes, setSizes] = React.useState(window.Inventory.allSizes);
 
   function handleSizeChange(selectedValue){
-      setColors(window.Inventory.bySize[selectedValue]);
+    var availableColors = window.Inventory.bySize[selectedValue] 
+    setColors(availableColors);
+    setSize(selectedValue);
+
+    if(availableColors.indexOf(color) === -1)
+      setColor(availableColors[0])
+  }
+
+  function handleColorChange(selectedValue){
+    var availableSizes = window.Inventory.byColor[selectedValue]
+    setSizes(availableSizes);
+    setColor(selectedValue);
+
+    if(availableSizes.indexOf(size) === -1)
+      setSize(availableSizes[0])
   }
 
   return (
@@ -71,7 +90,7 @@ function Product(props){
         <SizeSelector size={size} sizes={sizes} handleSizeChange={handleSizeChange}/>
       </div>
       <div className="selector">
-        <ColorSelector color={color} colors={colors}/>
+        <ColorSelector color={color} colors={colors} handleColorChange={handleColorChange}/>
       </div>
     </div>
   );
