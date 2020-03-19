@@ -11,11 +11,38 @@ function SizeSelector(props){
     });
   }
 
+  function onSizeChange(evt){
+    console.log(evt.target.value);
+    props.handleSizeChange(evt.target.value);
+  }
+
   return (
     <div>
       <label htmlFor="size-options">Size: </label>
-      <select defaultValue={props.size} name="size-options">
+      <select defaultValue={props.size} name="size-options" onChange={onSizeChange}>
         {sizeOptions()}
+      </select>
+    </div>
+  );
+}
+
+function ColorSelector(props){
+  
+  function colorOptions(){
+    return props.colors.map(function(name){
+      return (
+        <option value={name} key={name}>
+            {name}
+        </option>
+      );
+    });
+  }
+
+  return (
+    <div>
+      <label htmlFor="color-options">Color: </label>
+      <select defaultValue={props.color} name="color-options">
+        {colorOptions()}
       </select>
     </div>
   );
@@ -28,8 +55,12 @@ function ProductImage(props){
 function Product(props){
   var [size, setSize] = React.useState(9);
   var [color, setColor] = React.useState("red");
+  var [colors, setColors] = React.useState(window.Inventory.allColors);
   var [sizes, setSizes] = React.useState(window.Inventory.allSizes);
 
+  function handleSizeChange(selectedValue){
+      setColors(window.Inventory.bySize[selectedValue]);
+  }
 
   return (
     <div className="customizer">
@@ -37,7 +68,10 @@ function Product(props){
         <ProductImage color={color}/>
       </div>
       <div className="selector">
-        <SizeSelector size={size} sizes={sizes}/>
+        <SizeSelector size={size} sizes={sizes} handleSizeChange={handleSizeChange}/>
+      </div>
+      <div className="selector">
+        <ColorSelector color={color} colors={colors}/>
       </div>
     </div>
   );
