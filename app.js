@@ -1,10 +1,26 @@
+
 'use strict';
 
-Element = React.createElement(
-  "div",
-  {className:"customized"},
-  "This is the first REACT text.");
+
+function ProductImage(props){
+  return React.createElement(
+    "img",
+  {
+    src:"assets/red.jpg",
+    alt:"Product Image"
+  });
+}
+
+function Product(props){
+  return React.createElement(
+    "div",
+    {
+      className:"product-image"
+    },
+    React.createElement(ProductImage)
+  );
+}
 
 const domContainer = document.getElementById('react-root');
 
-ReactDOM.render(Element, domContainer);
+ReactDOM.render(React.createElement(Product), domContainer);
