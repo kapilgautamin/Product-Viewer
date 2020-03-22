@@ -1,4 +1,4 @@
-# React-First
+# Product Viewer
  Building a Product Selector using React
 
-Hosted at: https://kapilgautamin.github.io/React-First/
+Hosted at: https://kapilgautamin.github.io/Product-Viewer/.
